@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="content-type"/>
+<title>Stromverbrauch</title>
+
+<script type="text/javascript">
+// <![CDATA[
+
+// open table popup window
+function table(href) {
+  window.open(href, 'table', 'width=400,height=500,scrollbars=yes');
+  return false;
+}
+// open graph popup window
+function graph(href) {
+  window.open(href, 'graph', 'width=950,height=750,scrollbars=no');
+  return false;
+}
+// initialize the page
+function init() {
+  // reload after 5 min
+  window.setTimeout("window.location.reload(true)", 5 * 60 * 1000);
+}
+// ]]>
+</script>
+
+<style type="text/css">
+body, table, form {
+  font: 10px/16px verdana, arial, helvetica, sans-serif;
+  background-color: white;
+}
+h2 {
+  font-size: 12px;
+  font-weight: bold;
+}
+.datatable {
+	width: 500px;
+  border: 0px;
+}
+img.graph {
+  width: 500px;
+  height: 160px;
+}
+td {
+  border-width: 0px 0px 1px 0px;
+  border-style: solid;
+  border-color: #998DB3;
+}
+</style>
+
+</head>
+<body onload="init()">
+
+<table class="datatable">
+<tr>
+  <td>
+  <h2>Stromverbrauch</h2>
+</td>
+</tr>
+<tr>
+  <td>
+    <img alt="Zählerstand (24 h)" id="i0l" class="graph" src="graph.pl?type=countday" title="Zählerstand (24 h)"/>
+		<br/>
+    <a href="graph.pl?type=countday&amp;size=big" onclick="return graph(this.href);">Vergrößern</a>
+    | <a href="table.pl?type=countweek" onclick="return table(this.href);" target="table">Tabelle</a>
+</td>
+</tr>
+<tr>
+  <td>
+    <img alt="Verbrauch (24 h)" id="i1l" class="graph" src="graph.pl?type=consumday" title="Verbrauch (24 h)"/>
+		<br/>
+    <a href="graph.pl?type=consumday&amp;size=big" onclick="return graph(this.href);" >Vergrößern</a>
+    | <a href="table.pl?type=consumday" onclick="return table(this.href);"  target="table">Tabelle</a>
+</td>
+</tr>
+<tr>
+  <td>
+    <img alt="Verbrauch (Woche)" id="i2l" class="graph" src="graph.pl?type=consumweek" title="Verbrauch (Woche)"/>
+		<br/>
+    <a href="graph.pl?type=consumweek&amp;size=big" onclick="return graph(this.href);" >Vergrößern</a>
+    | <a href="table.pl?type=consumweek" onclick="return table(this.href);"  target="table">Tabelle</a>
+</td>
+</tr>
+<tr>
+  <td>
+    <img alt="Verbrauch (Monat)" id="i3l" class="graph" src="graph.pl?type=consummonth" title="Verbrauch (Monat)"/>
+		<br/>
+    <a href="graph.pl?type=consummonth&amp;size=big" onclick="return graph(this.href);" >Vergrößern</a>
+    | <a href="table.pl?type=consummonth" onclick="return table(this.href);"  target="table">Tabelle</a>
+</td>
+</tr>
+<tr>
+  <td>
+    <img alt="Verbrauch (Jahr)" id="i4l" class="graph" src="graph.pl?type=consumyear" title="Verbrauch (Jahr)"/>
+		<br/>
+    <a href="graph.pl?type=consumyear&amp;size=big" onclick="return graph(this.href);" >Vergrößern</a>
+    | <a href="table.pl?type=consumyear" onclick="return table(this.href);" target="table">Tabelle</a>
+</td>
+</tr>
+</table>
+
+</body>
+</html>

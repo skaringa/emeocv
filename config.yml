@@ -1,0 +1,9 @@
+%YAML:1.0
+rotationDegrees: 0
+cannyThreshold1: 100
+cannyThreshold2: 200
+digitMinHeight: 20
+digitMaxHeight: 90
+digitYAlignment: 10
+ocrMaxDist: 600000.
+trainingDataFilename: "training.yml"

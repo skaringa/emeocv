@@ -1,0 +1,8 @@
+*~
+*.rrd
+*.log
+nohup.out
+.project
+.cproject
+.settings/
+Debug/
