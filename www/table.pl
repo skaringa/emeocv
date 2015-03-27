@@ -105,7 +105,10 @@ tbody {
 -->
 END
 
-print start_html(-title=>"Gasverbrauch - $title", -style=>{-code=>$style});
+print start_html(-title=>"Stromverbrauch - $title", 
+  -style=>{-code=>$style},
+  -meta=>{"viewport"=>"initial-scale=1, minimum-scale=0.75, width=device-width"}
+);
 print start_table();
 print "\n";
 print thead(Tr(th({-class=>'time'}, $title), th([@headings])));
