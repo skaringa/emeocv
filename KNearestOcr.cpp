@@ -17,8 +17,13 @@
 
 #include "KNearestOcr.h"
 
+using namespace std;
+using namespace cv;
+using namespace cv::ml;
+
 KNearestOcr::KNearestOcr(const Config & config) :
-        _pModel(0), _config(config) {
+        _config(config) {
+    Ptr<KNearest> _pModel = KNearest::create();
 }
 
 KNearestOcr::~KNearestOcr() {
@@ -91,7 +96,7 @@ char KNearestOcr::recognize(const cv::Mat& img) {
             throw std::runtime_error("Model is not initialized");
         }
         cv::Mat results, neighborResponses, dists;
-        float result = _pModel->find_nearest(prepareSample(img), 2, results, neighborResponses, dists);
+        float result = _pModel->findNearest(prepareSample(img), 2, results, neighborResponses, dists);
         if (0 == int(neighborResponses.at<float>(0, 0) - neighborResponses.at<float>(0, 1))
                 && dists.at<float>(0, 0) < _config.getOcrMaxDist()) {
             // valid character if both neighbors have the same value and distance is below ocrMaxDist
@@ -134,6 +139,6 @@ cv::Mat KNearestOcr::prepareSample(const cv::Mat& img) {
  * Initialize the model.
  */
 void KNearestOcr::initModel() {
-    _pModel = new CvKNearest(_samples, _responses);
+    Ptr<KNearest> _pModel = KNearest::create();
 }
 

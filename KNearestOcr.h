@@ -14,6 +14,10 @@
 
 #include "Config.h"
 
+using namespace std;
+using namespace cv;
+using namespace cv::ml;
+
 class KNearestOcr {
 public:
     KNearestOcr(const Config & config);
@@ -33,7 +37,7 @@ private:
 
     cv::Mat _samples;
     cv::Mat _responses;
-    CvKNearest* _pModel;
+    Ptr <KNearest> _pModel;
     Config _config;
 };
 
