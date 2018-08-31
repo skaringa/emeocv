@@ -10,7 +10,7 @@ Prerequisites
 =============
 
 * g++, make
-* OpenCV 2 (Debian/Ubuntu/Raspbian: `apt-get install libopencv-dev`)
+* OpenCV 2 or 3 (Debian/Ubuntu/Raspbian: `apt-get install libopencv-dev`) - developed with OpenCV 2.3.1 and later ported to OpenCV 3.2.0
 * RRDtool (`apt-get install rrdtool librrd-dev`)
 * log4cpp (`apt-get install liblog4cpp5-dev`)
 
@@ -41,20 +41,20 @@ Usage
         -v <l> : Log level. One of DEBUG, INFO, ERROR (default).
 
 
-There is a tutorial that explains use case and function of the program: 
+There is a tutorial that explains use case and function of the program:
 [OpenCV practice: OCR for the electricity meter](http://www.thekompf.com/cplus/emeocv.html) or
 [OpenCV Praxis: OCR für den Stromzähler](http://cplus.kompf.de/emeocv.html) (in german language).
 
 License
 =======
 
-Copyright 2015 Martin Kompf
+Copyright 2015,2018 Martin Kompf
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
- 
+
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the

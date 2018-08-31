@@ -9,6 +9,7 @@
 #include <vector>
 #include <list>
 #include <string>
+#include "opencv2/core/version.hpp"
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/ml/ml.hpp>
 
@@ -33,7 +34,11 @@ private:
 
     cv::Mat _samples;
     cv::Mat _responses;
+#if CV_MAJOR_VERSION == 2
     CvKNearest* _pModel;
+#elif CV_MAJOR_VERSION == 3
+    cv::Ptr<cv::ml::KNearest> _pModel; 
+#endif
     Config _config;
 };
 

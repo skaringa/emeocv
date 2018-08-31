@@ -18,13 +18,20 @@
 #include "KNearestOcr.h"
 
 KNearestOcr::KNearestOcr(const Config & config) :
-        _pModel(0), _config(config) {
+#if CV_MAJOR_VERSION == 2
+    _pModel(0),
+#elif CV_MAJOR_VERSION == 3
+    _pModel(),
+#endif
+    _config(config) {
 }
 
 KNearestOcr::~KNearestOcr() {
+#if CV_MAJOR_VERSION == 2
     if (_pModel) {
         delete _pModel;
     }
+#endif
 }
 
 /**
@@ -87,11 +94,19 @@ char KNearestOcr::recognize(const cv::Mat& img) {
     log4cpp::Category& rlog = log4cpp::Category::getRoot();
     char cres = '?';
     try {
+#if CV_MAJOR_VERSION == 2
         if (!_pModel) {
+#elif CV_MAJOR_VERSION == 3
+        if (_pModel.empty()) {
+#endif
             throw std::runtime_error("Model is not initialized");
         }
         cv::Mat results, neighborResponses, dists;
+#if CV_MAJOR_VERSION == 2
         float result = _pModel->find_nearest(prepareSample(img), 2, results, neighborResponses, dists);
+#elif CV_MAJOR_VERSION == 3
+        float result = _pModel->findNearest(prepareSample(img), 2, results, neighborResponses, dists);
+#endif
         if (0 == int(neighborResponses.at<float>(0, 0) - neighborResponses.at<float>(0, 1))
                 && dists.at<float>(0, 0) < _config.getOcrMaxDist()) {
             // valid character if both neighbors have the same value and distance is below ocrMaxDist
@@ -134,5 +149,12 @@ cv::Mat KNearestOcr::prepareSample(const cv::Mat& img) {
  * Initialize the model.
  */
 void KNearestOcr::initModel() {
+#if CV_MAJOR_VERSION == 2
     _pModel = new CvKNearest(_samples, _responses);
+#elif CV_MAJOR_VERSION == 3
+    _pModel = cv::ml::KNearest::create();
+    // load persistent model
+    cv::Ptr<cv::ml::TrainData> trainData = cv::ml::TrainData::create(_samples, cv::ml::ROW_SAMPLE, _responses);
+    _pModel->train(trainData);
+#endif
 }

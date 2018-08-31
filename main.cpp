@@ -35,7 +35,7 @@
 static int delay = 1000;
 
 #ifndef VERSION
-#define VERSION "0.9.6"
+#define VERSION "0.9.7"
 #endif
 
 static void testOcr(ImageInput* pImageInput) {

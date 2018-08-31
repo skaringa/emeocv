@@ -14,7 +14,7 @@ OBJS = $(addprefix $(OUTDIR)/,\
   )
 
 CC = g++
-CFLAGS = -Wno-write-strings -I .
+CFLAGS = -Wno-write-strings -I . `pkg-config opencv --cflags`
 
 # DEBUG
 ifneq ($(RELEASE),true)
@@ -26,7 +26,7 @@ endif
 
 BIN := $(OUTDIR)/$(PROJECT)
 
-LDLIBS = -lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_ml -lrrd -llog4cpp
+LDLIBS = `pkg-config opencv --libs` -lrrd -llog4cpp
 
 SUFFIXES= .cpp .o
 .SUFFIXES: $(SUFFIXES) .
@@ -36,7 +36,7 @@ all: $(BIN)
 
 $(OUTDIR):
 	mkdir $(OUTDIR)
-	
+
 $(OBJS): $(OUTDIR)/%.o: %.cpp
 	$(CC) $(CFLAGS) -c $< -o $@
 
