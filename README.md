@@ -42,7 +42,7 @@ Usage
 
 
 There is a tutorial that explains use case and function of the program:
-[OpenCV practice: OCR for the electricity meter](http://www.thekompf.com/cplus/emeocv.html) or
+[OpenCV practice: OCR for the electricity meter](http://www.mkompf.com/cplus/emeocv.html) or
 [OpenCV Praxis: OCR für den Stromzähler](http://cplus.kompf.de/emeocv.html) (in german language).
 
 License
