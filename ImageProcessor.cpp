@@ -76,7 +76,7 @@ void ImageProcessor::process() {
     _digits.clear();
 
     // convert to gray
-    cvtColor(_img, _imgGray, CV_BGR2GRAY);
+    cvtColor(_img, _imgGray, cv::COLOR_BGR2GRAY);
 
     // initial rotation to get the digits up
     rotate(_config.getRotationDegrees());
@@ -89,7 +89,7 @@ void ImageProcessor::process() {
     findCounterDigits();
 
     if (_debugWindow) {
-        showImage();
+      showImage();
     }
 }
 
@@ -235,7 +235,13 @@ void ImageProcessor::findCounterDigits() {
     // find contours in whole image
     std::vector<std::vector<cv::Point> > contours, filteredContours;
     std::vector<cv::Rect> boundingBoxes;
-    cv::findContours(edges, contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_NONE);
+    cv::findContours(edges, contours,
+#if CV_MAJOR_VERSION == 2
+                     CV_RETR_EXTERNAL, CV_CHAIN_APPROX_NONE
+#elif CV_MAJOR_VERSION == 3 |4
+                     cv::RETR_EXTERNAL, cv::CHAIN_APPROX_NONE
+#endif
+                     );
 
     // filter contours by bounding rect size
     filterContours(contours, boundingBoxes, filteredContours);
@@ -245,11 +251,11 @@ void ImageProcessor::findCounterDigits() {
     // find bounding boxes that are aligned at y position
     std::vector<cv::Rect> alignedBoundingBoxes, tmpRes;
     for (std::vector<cv::Rect>::const_iterator ib = boundingBoxes.begin(); ib != boundingBoxes.end(); ++ib) {
-        tmpRes.clear();
-        findAlignedBoxes(ib, boundingBoxes.end(), tmpRes);
-        if (tmpRes.size() > alignedBoundingBoxes.size()) {
-            alignedBoundingBoxes = tmpRes;
-        }
+      tmpRes.clear();
+      findAlignedBoxes(ib, boundingBoxes.end(), tmpRes);
+      if (tmpRes.size() > alignedBoundingBoxes.size()) {
+        alignedBoundingBoxes = tmpRes;
+      }
     }
     rlog << log4cpp::Priority::INFO << "max number of alignedBoxes: " << alignedBoundingBoxes.size();
 
@@ -257,18 +263,18 @@ void ImageProcessor::findCounterDigits() {
     std::sort(alignedBoundingBoxes.begin(), alignedBoundingBoxes.end(), sortRectByX());
 
     if (_debugEdges) {
-        // draw contours
-        cv::Mat cont = cv::Mat::zeros(edges.rows, edges.cols, CV_8UC1);
-        cv::drawContours(cont, filteredContours, -1, cv::Scalar(255));
-        cv::imshow("contours", cont);
+      // draw contours
+      cv::Mat cont = cv::Mat::zeros(edges.rows, edges.cols, CV_8UC1);
+      cv::drawContours(cont, filteredContours, -1, cv::Scalar(255));
+      cv::imshow("contours", cont);
     }
 
     // cut out found rectangles from edged image
     for (int i = 0; i < alignedBoundingBoxes.size(); ++i) {
-        cv::Rect roi = alignedBoundingBoxes[i];
-        _digits.push_back(img_ret(roi));
-        if (_debugDigits) {
-            cv::rectangle(_img, roi, cv::Scalar(0, 255, 0), 2);
-        }
+      cv::Rect roi = alignedBoundingBoxes[i];
+      _digits.push_back(img_ret(roi));
+      if (_debugDigits) {
+        cv::rectangle(_img, roi, cv::Scalar(0, 255, 0), 2);
+      }
     }
 }

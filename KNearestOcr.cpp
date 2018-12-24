@@ -96,25 +96,25 @@ char KNearestOcr::recognize(const cv::Mat& img) {
     try {
 #if CV_MAJOR_VERSION == 2
         if (!_pModel) {
-#elif CV_MAJOR_VERSION == 3
-        if (_pModel.empty()) {
+#elif CV_MAJOR_VERSION == 3 | 4
+          if (_pModel.empty()) {
 #endif
             throw std::runtime_error("Model is not initialized");
-        }
-        cv::Mat results, neighborResponses, dists;
+          }
+          cv::Mat results, neighborResponses, dists;
 #if CV_MAJOR_VERSION == 2
-        float result = _pModel->find_nearest(prepareSample(img), 2, results, neighborResponses, dists);
-#elif CV_MAJOR_VERSION == 3
-        float result = _pModel->findNearest(prepareSample(img), 2, results, neighborResponses, dists);
+          float result = _pModel->find_nearest(prepareSample(img), 2, results, neighborResponses, dists);
+#elif CV_MAJOR_VERSION == 3 | 4
+          float result = _pModel->findNearest(prepareSample(img), 2, results, neighborResponses, dists);
 #endif
-        if (0 == int(neighborResponses.at<float>(0, 0) - neighborResponses.at<float>(0, 1))
-                && dists.at<float>(0, 0) < _config.getOcrMaxDist()) {
+          if (0 == int(neighborResponses.at<float>(0, 0) - neighborResponses.at<float>(0, 1))
+              && dists.at<float>(0, 0) < _config.getOcrMaxDist()) {
             // valid character if both neighbors have the same value and distance is below ocrMaxDist
             cres = '0' + (int) result;
-        } else if (rlog.isInfoEnabled()) {
+          } else if (rlog.isInfoEnabled()) {
             rlog << log4cpp::Priority::INFO << "OCR rejected: " << (int) result;
-        }
-        rlog << log4cpp::Priority::DEBUG << "results: " << results;
+          }
+          rlog << log4cpp::Priority::DEBUG << "results: " << results;
         rlog << log4cpp::Priority::DEBUG << "neighborResponses: " << neighborResponses;
         rlog << log4cpp::Priority::DEBUG << "dists: " << dists;
     } catch (std::exception & e) {
