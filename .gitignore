@@ -6,3 +6,4 @@ nohup.out
 .cproject
 .settings/
 Debug/
+build/
