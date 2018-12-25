@@ -76,8 +76,8 @@ void ImageProcessor::process() {
     _digits.clear();
 
     // convert to gray
-#if CV_MAJOR_VERSION == 1
-    cvtColor(_img, _imgGray, CV_COLOR_BGR2GRAY);
+#if CV_MAJOR_VERSION == 2
+    cvtColor(_img, _imgGray, CV_BGR2GRAY);
 #elif CV_MAJOR_VERSION == 3 | 4
     cvtColor(_img, _imgGray, cv::COLOR_BGR2GRAY);
 #endif
