@@ -14,18 +14,7 @@ OBJS = $(addprefix $(OUTDIR)/,\
   )
 
 CC = g++
-CFLAGS = -Wno-write-strings -I .
-
-# Check if opencv can be found, if not try to find opencv4 instead
-OPENCV-found := $(shell 'pkg-config opencv --cflags' 2>/dev/null)
-
-ifdef OPENCV-found
- 	CFLAGS += `pkg-config opencv --cflags`
-	LDLIBS = `pkg-config opencv --libs`
-else
- 	CFLAGS += `pkg-config opencv4 --cflags`
-	LDLIBS = `pkg-config opencv4 --libs`
-endif
+CFLAGS = -Wno-write-strings -I . `pkg-config opencv --cflags`
 
 # DEBUG
 ifneq ($(RELEASE),true)
@@ -37,7 +26,7 @@ endif
 
 BIN := $(OUTDIR)/$(PROJECT)
 
-LDLIBS += -lrrd -llog4cpp
+LDLIBS = `pkg-config opencv --libs` -lrrd -llog4cpp
 
 SUFFIXES= .cpp .o
 .SUFFIXES: $(SUFFIXES) .
