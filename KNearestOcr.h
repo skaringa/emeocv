@@ -36,7 +36,7 @@ private:
     cv::Mat _responses;
 #if CV_MAJOR_VERSION == 2
     CvKNearest* _pModel;
-#elif CV_MAJOR_VERSION == 3
+#elif CV_MAJOR_VERSION == 3 | 4
     cv::Ptr<cv::ml::KNearest> _pModel; 
 #endif
     Config _config;

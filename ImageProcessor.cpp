@@ -76,7 +76,11 @@ void ImageProcessor::process() {
     _digits.clear();
 
     // convert to gray
-    cvtColor(_img, _imgGray, CV_BGR2GRAY);
+#if CV_MAJOR_VERSION == 2
+    cvtColor(_img, _imgGray, CV_BGR2GRAY); 
+#elif CV_MAJOR_VERSION == 3 | 4
+    cvtColor(_img, _imgGray, cv::COLOR_BGR2GRAY);
+#endif
 
     // initial rotation to get the digits up
     rotate(_config.getRotationDegrees());
@@ -235,7 +239,12 @@ void ImageProcessor::findCounterDigits() {
     // find contours in whole image
     std::vector<std::vector<cv::Point> > contours, filteredContours;
     std::vector<cv::Rect> boundingBoxes;
+
+#if CV_MAJOR_VERSION == 2
     cv::findContours(edges, contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_NONE);
+#elif CV_MAJOR_VERSION == 3 | 4
+    cv::findContours(edges, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_NONE);
+#endif
 
     // filter contours by bounding rect size
     filterContours(contours, boundingBoxes, filteredContours);

@@ -20,7 +20,7 @@
 KNearestOcr::KNearestOcr(const Config & config) :
 #if CV_MAJOR_VERSION == 2
     _pModel(0),
-#elif CV_MAJOR_VERSION == 3
+#elif CV_MAJOR_VERSION == 3 | 4
     _pModel(),
 #endif
     _config(config) {
@@ -96,7 +96,7 @@ char KNearestOcr::recognize(const cv::Mat& img) {
     try {
 #if CV_MAJOR_VERSION == 2
         if (!_pModel) {
-#elif CV_MAJOR_VERSION == 3
+#elif CV_MAJOR_VERSION == 3 | 4
         if (_pModel.empty()) {
 #endif
             throw std::runtime_error("Model is not initialized");
@@ -104,7 +104,7 @@ char KNearestOcr::recognize(const cv::Mat& img) {
         cv::Mat results, neighborResponses, dists;
 #if CV_MAJOR_VERSION == 2
         float result = _pModel->find_nearest(prepareSample(img), 2, results, neighborResponses, dists);
-#elif CV_MAJOR_VERSION == 3
+#elif CV_MAJOR_VERSION == 3 | 4
         float result = _pModel->findNearest(prepareSample(img), 2, results, neighborResponses, dists);
 #endif
         if (0 == int(neighborResponses.at<float>(0, 0) - neighborResponses.at<float>(0, 1))
