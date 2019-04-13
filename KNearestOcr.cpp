@@ -60,6 +60,10 @@ int KNearestOcr::learn(const std::vector<cv::Mat>& images) {
     return key;
 }
 
+bool KNearestOcr::hasTrainingData() {
+    return !_samples.empty() && !_responses.empty();
+}
+
 /**
  * Save training data to file.
  */
@@ -151,7 +155,7 @@ cv::Mat KNearestOcr::prepareSample(const cv::Mat& img) {
 void KNearestOcr::initModel() {
 #if CV_MAJOR_VERSION == 2
     _pModel = new CvKNearest(_samples, _responses);
-#elif CV_MAJOR_VERSION == 3
+#elif CV_MAJOR_VERSION == 3 | 4
     _pModel = cv::ml::KNearest::create();
     // load persistent model
     cv::Ptr<cv::ml::TrainData> trainData = cv::ml::TrainData::create(_samples, cv::ml::ROW_SAMPLE, _responses);

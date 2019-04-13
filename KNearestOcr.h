@@ -22,6 +22,7 @@ public:
 
     int learn(const cv::Mat & img);
     int learn(const std::vector<cv::Mat> & images);
+    bool hasTrainingData();
     void saveTrainingData();
     bool loadTrainingData();
 
@@ -37,7 +38,7 @@ private:
 #if CV_MAJOR_VERSION == 2
     CvKNearest* _pModel;
 #elif CV_MAJOR_VERSION == 3 | 4
-    cv::Ptr<cv::ml::KNearest> _pModel; 
+    cv::Ptr<cv::ml::KNearest> _pModel;
 #endif
     Config _config;
 };

@@ -104,7 +104,7 @@ static void learnOcr(ImageInput* pImageInput) {
         }
     }
 
-    if (key != 'q') {
+    if (key != 'q' && ocr.hasTrainingData()) {
         std::cout << "Saving training data\n";
         ocr.saveTrainingData();
     }
