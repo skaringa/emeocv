@@ -42,13 +42,13 @@ Usage
 
 
 There is a tutorial that explains use case and function of the program:
-[OpenCV practice: OCR for the electricity meter](http://www.mkompf.com/cplus/emeocv.html) or
-[OpenCV Praxis: OCR für den Stromzähler](http://cplus.kompf.de/emeocv.html) (in german language).
+[OpenCV practice: OCR for the electricity meter](https://www.mkompf.com/cplus/emeocv.html) or
+[OpenCV Praxis: OCR für den Stromzähler](https://www.kompf.de/cplus/emeocv.html) (in german language).
 
 License
 =======
 
-Copyright 2015,2018 Martin Kompf
+Copyright 2015,2019 Martin Kompf
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
