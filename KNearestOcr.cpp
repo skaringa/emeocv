@@ -40,6 +40,10 @@ KNearestOcr::~KNearestOcr() {
 int KNearestOcr::learn(const cv::Mat & img) {
     cv::imshow("Learn", img);
     int key = cv::waitKey(0) & 255;
+    if (key >= 176 && key <= 185) {
+        key-=128; // numeric keypad
+    }
+    //std::cout << key-'0' << std::endl;
     if (key >= '0' && key <= '9') {
         _responses.push_back(cv::Mat(1, 1, CV_32F, (float) key - '0'));
         _samples.push_back(prepareSample(img));
