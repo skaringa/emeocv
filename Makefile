@@ -2,6 +2,11 @@
 
 PROJECT = emeocv
 
+OPENCV = $(shell pkg-config --exists opencv4 && echo opencv4)
+ifneq ($(OPENCV), opencv4)
+OPENCV = opencv
+endif
+
 OBJS = $(addprefix $(OUTDIR)/,\
   Directory.o \
   Config.o \
@@ -14,7 +19,7 @@ OBJS = $(addprefix $(OUTDIR)/,\
   )
 
 CC = g++
-CFLAGS = -Wno-write-strings -I . `pkg-config opencv --cflags`
+CFLAGS = -Wno-write-strings -I . `pkg-config $(OPENCV) --cflags`
 
 # DEBUG
 ifneq ($(RELEASE),true)
@@ -26,7 +31,7 @@ endif
 
 BIN := $(OUTDIR)/$(PROJECT)
 
-LDLIBS = `pkg-config opencv --libs` -lrrd -llog4cpp
+LDLIBS = `pkg-config $(OPENCV) --libs` -lrrd -llog4cpp
 
 SUFFIXES= .cpp .o
 .SUFFIXES: $(SUFFIXES) .

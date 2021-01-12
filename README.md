@@ -10,7 +10,7 @@ Prerequisites
 =============
 
 * g++, make
-* OpenCV 2 or 3 (Debian/Ubuntu/Raspbian: `apt-get install libopencv-dev`) - developed with OpenCV 2.3.1 and later ported to OpenCV 3.2.0
+* OpenCV 2, 3, 4 (Debian/Ubuntu/Raspbian: `apt-get install libopencv-dev`) - developed with OpenCV 2.3.1 and later ported to OpenCV 3.2.0 and 4.2.0
 * RRDtool (`apt-get install rrdtool librrd-dev`)
 * log4cpp (`apt-get install liblog4cpp5-dev`)
 
@@ -48,7 +48,7 @@ There is a tutorial that explains use case and function of the program:
 License
 =======
 
-Copyright 2015,2019 Martin Kompf
+Copyright 2015,2021 Martin Kompf
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
