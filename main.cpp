@@ -212,7 +212,7 @@ static void usage(const char* progname) {
     std::cout << "  -c <camera number> : read images from camera.\n";
     std::cout << "\nOperation:\n";
     std::cout << "  -a : adjust camera.\n";
-    std::cout << "  -o <directory> : capture images into directory.\n";
+    std::cout << "  -o <directory> : capture images into directory. Last directory will be created if needed.\n";
     std::cout << "  -l : learn OCR.\n";
     std::cout << "  -t : test OCR.\n";
     std::cout << "  -w : write OCR data to RR database. This is the normal working mode.\n";
@@ -296,6 +296,7 @@ int main(int argc, char **argv) {
     switch (cmd) {
         case 'o':
             pImageInput->setOutputDir(outputDir);
+            mkdir(outputDir.c_str(), 0755);
             capture(pImageInput);
             break;
         case 'l':
