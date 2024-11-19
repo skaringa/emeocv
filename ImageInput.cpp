@@ -39,6 +39,8 @@ void ImageInput::saveImage() {
     std::string path = _outDir + filename;
     if (cv::imwrite(path, _img)) {
         log4cpp::Category::getRoot() << log4cpp::Priority::INFO << "Image saved to " + path;
+    } else {
+        log4cpp::Category::getRoot() << log4cpp::Priority::ERROR << "Failed to save image to " + path;
     }
 }
 
