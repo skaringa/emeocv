@@ -13,6 +13,7 @@ Prerequisites
 * OpenCV 2, 3, 4 (Debian/Ubuntu/Raspbian: `apt-get install libopencv-dev`) - developed with OpenCV 2.3.1 and later ported to OpenCV 3.2.0 and 4.2.0
 * RRDtool (`apt-get install rrdtool librrd-dev`)
 * log4cpp (`apt-get install liblog4cpp5-dev`)
+* imagemagick (optional, only needed to display graphs)
 
 Build
 =====
